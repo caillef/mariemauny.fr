@@ -260,10 +260,26 @@
   .f input::placeholder,.f textarea::placeholder{color:var(--taupe);opacity:1}
   .f input:focus,.f textarea:focus{outline:none;border-color:var(--terracotta)}
   .f textarea{min-height:130px;resize:vertical;line-height:1.6}
+  .consent{
+    display:flex;gap:12px;align-items:flex-start;margin-top:28px;cursor:pointer;
+    font-size:.86rem;color:var(--ink-soft);line-height:1.6;
+  }
+  .consent input{
+    width:17px;height:17px;margin-top:4px;flex-shrink:0;
+    accent-color:var(--terracotta);cursor:pointer;
+  }
   .form .submit{
     display:block;margin:38px auto 0;background:none;cursor:pointer;font-family:'Jost',sans-serif;
   }
+  .form .submit[disabled]{opacity:.55;cursor:progress}
+  .form .fstatus{text-align:center;font-size:.82rem;color:var(--terracotta);line-height:1.6}
+  .form .fstatus:not(:empty){margin-top:18px}
   .form .note{text-align:center;font-size:.82rem;color:var(--taupe);margin-top:20px}
+  .thanks{text-align:center;padding:56px 0}
+  .thanks .script{
+    font-family:'Parisienne',cursive;font-size:2.4rem;color:var(--terracotta);line-height:1.2;
+  }
+  .thanks p+p{margin-top:14px;color:var(--ink-soft)}
   @media(max-width:600px){.fields{grid-template-columns:1fr}}
 
   /* ---------- valeurs refrain ---------- */
@@ -555,8 +571,9 @@
     <h2 class="reveal">Offrez-vous un <span class="script">temps pour vous</span></h2>
     <p class="intro reveal">Dites-moi simplement ce dont vous avez besoin en ce moment. Je vous réponds sous 24 h et nous trouvons ensemble le moment qui vous convient.</p>
 
-    <!-- TODO : brancher un endpoint (Formspree / Netlify Forms). En attendant, le formulaire ouvre l'email pré-rempli -->
     <form class="form reveal" id="contactForm" novalidate>
+      <!-- honeypot anti-robot : invisible pour une humaine, coché par les bots -->
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
       <span class="flab">Ce qui vous amène (plusieurs choix possibles)</span>
       <div class="chips">
         <label class="chip"><input type="checkbox" name="besoin" value="Je suis épuisée, je n’arrive plus à souffler"><span>Je suis épuisée</span></label>
@@ -576,9 +593,20 @@
         <div class="f full"><label for="message">Votre message <span style="text-transform:none;letter-spacing:0">(facultatif)</span></label><textarea id="message" name="message" placeholder="Ce que vous avez envie de me dire, même en quelques mots."></textarea></div>
       </div>
 
+      <label class="consent">
+        <input type="checkbox" name="consentement" required>
+        <span>J’accepte que ces informations soient utilisées par Marie Mauny pour me recontacter. Elles ne sont ni revendues ni transmises à des tiers.</span>
+      </label>
+
       <button class="cta submit" type="submit">Envoyer ma demande</button>
+      <p class="fstatus" id="formStatus" role="status" aria-live="polite"></p>
       <p class="note">Réponse sous 24 h. Vos informations restent strictement confidentielles et ne servent qu’à vous recontacter.</p>
     </form>
+
+    <div class="thanks" id="formThanks" hidden tabindex="-1">
+      <p class="script">Merci</p>
+      <p>Votre demande est bien arrivée. Je vous réponds sous 24 h.</p>
+    </div>
   </div>
 </section>
 
@@ -612,29 +640,52 @@
   addEventListener('resize',function(){if(innerWidth>720)setMenu(false)});
   // year
   document.getElementById('yr').textContent=new Date().getFullYear();
-  // formulaire → email pré-rempli (à remplacer par un vrai endpoint)
-  var DEST='contact@mariemauny.fr'; // TODO : email réel de Marie
+  // formulaire → boîte mail de Marie via Web3Forms
+  // Clé publique par conception : elle ne permet que d'envoyer vers l'adresse qui l'a créée.
+  // Les destinataires se gèrent sur https://web3forms.com
+  var W3F_KEY='b901a616-eb08-4108-ad25-4f872d83bde6';
   var form=document.getElementById('contactForm');
+  var thanks=document.getElementById('formThanks');
+  var statut=document.getElementById('formStatus');
+  var bouton=form.querySelector('.submit');
+  var boutonTexte=bouton.textContent;
   form.addEventListener('submit',function(e){
     e.preventDefault();
     if(!form.reportValidity())return;
     var d=new FormData(form);
     var besoins=d.getAll('besoin');
-    var corps=[
-      'Prénom : '+d.get('prenom'),
-      'Email : '+d.get('email'),
-      'Téléphone : '+d.get('tel'),
-      'Ville : '+d.get('ville'),
-      '',
-      'Ce qui m’amène :',
-      besoins.length?besoins.map(function(b){return '- '+b}).join('\n'):'- (non précisé)',
-      '',
-      'Message :',
-      d.get('message')||'(aucun)'
-    ].join('\n');
-    location.href='mailto:'+DEST
-      +'?subject='+encodeURIComponent('Demande de séance : '+d.get('prenom'))
-      +'&body='+encodeURIComponent(corps);
+    statut.textContent='';
+    bouton.disabled=true;
+    bouton.textContent='Envoi en cours…';
+    fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        access_key:W3F_KEY,
+        subject:'Demande de séance : '+d.get('prenom'),
+        from_name:'Site mariemauny.fr',
+        replyto:d.get('email'),
+        botcheck:d.get('botcheck')?true:false,
+        'Prénom':d.get('prenom'),
+        'Email':d.get('email'),
+        'Téléphone':d.get('tel'),
+        'Ville':d.get('ville'),
+        'Ce qui l’amène':besoins.length?'\n- '+besoins.join('\n- '):'(non précisé)',
+        'Message':d.get('message')||'(aucun)'
+      })
+    })
+    .then(function(r){return r.json()})
+    .then(function(data){
+      if(!data.success)throw new Error(data.message||'envoi refusé');
+      form.hidden=true;
+      thanks.hidden=false;
+      thanks.focus();
+    })
+    .catch(function(){
+      bouton.disabled=false;
+      bouton.textContent=boutonTexte;
+      statut.textContent='L’envoi n’a pas fonctionné. Réessayez dans un instant, ou écrivez directement à Marie.';
+    });
   });
   // reveal on scroll
   var io=new IntersectionObserver(function(es){
