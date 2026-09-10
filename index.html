@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marie Mauny, accompagnante émotionnelle & énergétique</title>
-<meta name="description" content="Une séance sur mesure d'1h30 pour les mamans : écoute, soutien et massage relaxant. Un accompagnement bienveillant pour vivre plus sereinement.">
+<meta name="description" content="Une séance sur mesure d'1h30 pour les mamans : écoute, soutien et massage relaxant. Massage prénatal, accompagnement postnatal et atelier massage bébé, avec bienveillance.">
 <link rel="icon" href="favicon.ico" sizes="48x48 32x32 16x16">
 <link rel="icon" href="favicon.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -164,6 +164,7 @@
   .soins .head .eyebrow{display:block;margin-bottom:16px}
   .soins .head h2{font-size:clamp(2rem,4vw,2.9rem)}
   .soins .head h2 .script{color:var(--terracotta);font-size:1.25em}
+  .soins .head .intro{color:var(--ink-soft);max-width:54ch;margin:20px auto 0}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
   .card{
     background:var(--shell);border:1px solid rgba(168,91,63,.14);
@@ -313,6 +314,8 @@
 
   /* ---------- responsive ---------- */
   @media(max-width:900px){
+    /* six entrées de menu : on resserre pour éviter le retour à la ligne */
+    .nav nav{gap:18px;font-size:.76rem;letter-spacing:.1em}
     .wrap{padding:0 26px}
     .about{padding:84px 0 78px}
     .soins{padding:86px 0 82px}
@@ -389,6 +392,7 @@
     <a href="#about">À propos</a>
     <a href="#seance">Femme</a>
     <a href="#premiere">Première fois</a>
+    <a href="#maternite">Maternité</a>
     <a href="#enfants">Enfant</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -508,6 +512,69 @@
   </div>
 </section>
 
+<!-- MATERNITÉ -->
+<section class="soins" id="maternite">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Maternité</span>
+      <h2>Un accompagnement <span class="script">à chaque étape</span></h2>
+      <p class="intro">De la grossesse aux premiers mois, la maternité émerveille autant qu’elle chamboule. Je vous accompagne avec douceur, à votre rythme, dans un espace sécurisant et sans jugement.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <div class="icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="34" cy="36" r="18"/>
+            <path d="M22 22 C20 15 22 9 28 6"/>
+            <path d="M34 44 C29.6 40.6 25 37.8 25 33.2 C25 29.8 27.8 28 30.6 28.8 C32.4 29.4 33.6 30.6 34 31.8 C34.4 30.6 35.6 29.4 37.4 28.8 C40.2 28 43 29.8 43 33.2 C43 37.8 38.4 40.6 34 44 Z"/>
+          </svg>
+        </div>
+        <h3>Massage prénatal</h3>
+        <div class="num">pendant la grossesse</div>
+        <p>La grossesse est une période merveilleuse, mais elle apporte aussi fatigue, tensions et inconforts. Le massage prénatal est une pause de douceur pour relâcher les tensions et vous reconnecter à votre corps.</p>
+        <p>Installée confortablement, dans le respect de vos besoins : un vrai moment pour vous et votre bébé, avant la rencontre.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 46 C26.4 41.6 20 38 20 32 C20 27.6 23.6 25.4 27.2 26.4 C29.6 27.2 31.2 28.8 32 30.4 C32.8 28.8 34.4 27.2 36.8 26.4 C40.4 25.4 44 27.6 44 32 C44 38 37.6 41.6 32 46 Z"/>
+            <path d="M10 34 C10 46 20 56 32 56 C44 56 54 46 54 34"/>
+            <path d="M10 34 C10 30 13 27 16 27"/>
+            <path d="M54 34 C54 30 51 27 48 27"/>
+          </svg>
+        </div>
+        <h3>Accompagnement postnatal</h3>
+        <div class="num">après la naissance</div>
+        <p>Le post-partum peut être bouleversant, parfois bien différent de ce que vous aviez imaginé. Fatigue, émotions intenses, doutes : tout ce que vous ressentez mérite d’être accueilli.</p>
+        <p>Écoute, soutien, massage bien-être et soin Reiki : une parenthèse de repos, de réconfort et de reconnexion à vous-même.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="34" r="18"/>
+            <path d="M32 16 C32 10 36 8 39 10"/>
+            <path d="M25 32 C26.6 30 29 30 30.6 32"/>
+            <path d="M33.4 32 C35 30 37.4 30 39 32"/>
+            <path d="M27 41 C30 44.2 34 44.2 37 41"/>
+          </svg>
+        </div>
+        <h3>Atelier massage bébé</h3>
+        <div class="num">à partir de 2 mois</div>
+        <p>Un doux moment de connexion et de tendresse avec votre bébé. Je vous guide pas à pas vers des gestes simples et adaptés, sans pression et sans aucune expérience nécessaire.</p>
+        <p>Chaque bébé a son propre rythme : nous l’écoutons, nous le respectons, et nous avançons toujours avec lui.</p>
+      </article>
+    </div>
+
+    <p class="foot reveal">Vous n’avez pas besoin d’être forte, ni d’attendre d’aller mal pour demander de l’aide. Vous avez le droit d’être entourée, soutenue et choyée.</p>
+
+    <!-- TODO Marie : durées et tarifs du massage prénatal, de l'accompagnement postnatal et de l'atelier massage bébé -->
+    <div class="cta-row reveal"><a class="cta" href="#contact">Prendre rendez-vous</a></div>
+  </div>
+</section>
+
 <!-- VALEURS -->
 <section class="values">
   <svg class="branch" viewBox="0 0 200 320" aria-hidden="true">
@@ -577,6 +644,9 @@
         <label class="chip"><input type="checkbox" name="besoin" value="J’ai du mal à me reconnecter à mon corps"><span>Je me sens loin de mon corps</span></label>
         <label class="chip"><input type="checkbox" name="besoin" value="Je me sens tendue, nouée, irritable"><span>Je suis tendue, irritable</span></label>
         <label class="chip"><input type="checkbox" name="besoin" value="Je ne sais pas trop, j’ai juste besoin d’un moment pour moi"><span>Je veux juste un moment pour moi</span></label>
+        <label class="chip"><input type="checkbox" name="besoin" value="Je suis enceinte, je souhaite un massage prénatal"><span>Je suis enceinte</span></label>
+        <label class="chip"><input type="checkbox" name="besoin" value="Je viens d’accoucher, j’ai besoin d’être accompagnée"><span>Je viens d’accoucher</span></label>
+        <label class="chip"><input type="checkbox" name="besoin" value="C’est pour l’atelier massage bébé"><span>L’atelier massage bébé</span></label>
         <label class="chip"><input type="checkbox" name="besoin" value="C’est pour une séance enfant"><span>C’est pour mon enfant</span></label>
       </div>
 
