@@ -315,6 +315,10 @@
   footer .fs{font-family:'Parisienne',cursive;font-size:1.35rem;color:var(--rose-light);margin-top:2px}
   footer .pill{margin-top:20px;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(var(--shell-rgb),.72)}
   footer .pill .dot{color:var(--rose-light)}
+  footer .insta{margin-top:22px}
+  footer .insta a{display:inline-flex;align-items:center;gap:9px;color:rgba(var(--shell-rgb),.86);text-decoration:none;font-size:.86rem;letter-spacing:.06em;border-bottom:1px solid rgba(var(--shell-rgb),.28);padding-bottom:3px;transition:color .3s,border-color .3s}
+  footer .insta svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  @media(hover:hover){footer .insta a:hover{color:var(--rose-light);border-bottom-color:var(--rose-light)}}
   footer .legal{margin-top:26px;font-size:.74rem;color:rgba(var(--shell-rgb),.62);letter-spacing:.05em}
 
   /* ---------- responsive ---------- */
@@ -684,6 +688,16 @@
   <div class="fb">Marie Mauny</div>
   <div class="fs">accompagnante émotionnelle & énergétique</div>
   <div class="pill">Écoute <span class="dot">·</span> Soutien <span class="dot">·</span> Énergie <span class="dot">·</span> Massage</div>
+  <div class="insta">
+    <a href="https://www.instagram.com/mariemauny_accompagnante/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4"></circle>
+        <circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"></circle>
+      </svg>
+      <span>mariemauny_accompagnante</span>
+    </a>
+  </div>
   <div class="legal">© <span id="yr"></span> Marie Mauny. Tous droits réservés.<br>
     Les séances proposées sont des soins de bien-être et de relaxation. Elles ne se substituent en aucun cas à un avis, un diagnostic ou un traitement médical.<br>
     <!-- TODO : statut (auto-entrepreneur / SIRET), adresse, mentions légales & politique de confidentialité -->
